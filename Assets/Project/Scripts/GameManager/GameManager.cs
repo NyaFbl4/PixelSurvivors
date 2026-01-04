@@ -96,5 +96,52 @@ namespace Project.Scripts.GameManager
             Time.timeScale = 1;
             Debug.Log("START GAME");
         }
+        [Button]
+        public void FinishGame()
+        {
+            foreach (var gameListener in _gameListeners)
+            {
+                if (gameListener is IGameFinishListener gameFinishListener)
+                {
+                    gameFinishListener.OnFinishGame();
+                }
+            }
+            
+            Time.timeScale = 0;
+            _gameState = EGameState.Finish;
+            Debug.Log("FINISH");
+        }
+        
+        [Button]
+        public void PauseGame()
+        {
+            foreach (var gameListener in _gameListeners)
+            {
+                if (gameListener is IGamePauseListener gamePauseListener)
+                {
+                    gamePauseListener.OnPauseGame();
+                }
+            }
+            
+            Time.timeScale = 0;
+            _gameState = EGameState.Pause;
+            Debug.Log("PAUSE");
+        }
+        
+        [Button]
+        public void ResumeGame()
+        {
+            foreach (var gameListener in _gameListeners)
+            {
+                if (gameListener is IGameResumeListener gameResumeListener)
+                {
+                    gameResumeListener.OnResumeGame();
+                }
+            }
+            
+            Time.timeScale = 1;
+            _gameState = EGameState.Play;
+            Debug.Log("RESUME");
+        }
     }
 }
