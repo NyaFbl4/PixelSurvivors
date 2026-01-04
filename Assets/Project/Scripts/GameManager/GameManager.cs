@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Project.Scripts.GameManager
@@ -77,6 +78,23 @@ namespace Project.Scripts.GameManager
 
             if (gameListener is IGameFixedUpdateListener gameFixedUpdateListener)
                 _gameFixedUpdateListeners.Remove(gameFixedUpdateListener);
+        }
+
+        [Button]
+        private void StartGame()
+        {
+            foreach (var gameListener in _gameListeners)
+            {
+                if (gameListener is IGameStartListener gameStartListener)
+                {
+                    gameStartListener.OnStartGame();
+                    Debug.Log("IGameStartListener");
+                }
+            }
+
+            _gameState = EGameState.Play;
+            Time.timeScale = 1;
+            Debug.Log("START GAME");
         }
     }
 }
