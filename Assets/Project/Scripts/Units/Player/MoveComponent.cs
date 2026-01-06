@@ -38,13 +38,11 @@ namespace Project.Scripts.Player
         private void OnMoveX(float directionX)
         {
             _directionX = directionX;
-            //Debug.Log(_dirX);
         }
         
         private void OnMoveY(float directionY)
         {
             _directionY = directionY;
-            //Debug.Log(_dirZ);
         }
     }
 }
