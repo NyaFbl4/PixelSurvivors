@@ -7,147 +7,7 @@ using VContainer.Unity;
 
 namespace Project.Scripts.GameManager
 {
-    public class GameManagerService : MonoBehaviour
-    {
-        [SerializeField, Unity.Collections.ReadOnly]
-        private EGameState _gameState;
-
-        private readonly List<IGameListener>  _gameListeners = new();
-        private readonly List<IGameUpdateListener>  _gameUpdateListeners = new();
-        private readonly List<IGameFixedUpdateListener> _gameFixedUpdateListeners = new();
-        
-        public event Action OnStartGame;
-
-        private void Awake()
-        {
-            _gameState = EGameState.Off;
-
-            IGameListener.onRegister += AddListener;
-            IGameListener.onUnregister += RemoveListener;
-        }
-
-        private void OnDestroy()
-        {
-            _gameState = EGameState.Finish;
-            
-            IGameListener.onRegister -= RemoveListener;
-            IGameListener.onUnregister -= AddListener;
-        }
-
-        private void Update()
-        {
-            if (_gameState != EGameState.Play)
-                return;
-            
-            var deltaTime = Time.deltaTime;
-
-            foreach (var listener in _gameUpdateListeners)
-            {
-                listener.OnUpdate(deltaTime);
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if(_gameState != EGameState.Play)
-                return;
-            
-            var deltaTime = Time.deltaTime;
-            
-            foreach (var listener in _gameFixedUpdateListeners)
-            {
-                listener.OnFixedUpdate(deltaTime);
-            }
-        }
-
-        private void AddListener(IGameListener gameListener)
-        {
-            _gameListeners.Add(gameListener);
-
-            if (gameListener is IGameUpdateListener gameUpdateListener)
-                _gameUpdateListeners.Add(gameUpdateListener);
-
-            if (gameListener is IGameFixedUpdateListener gameFixedUpdateListener)
-                _gameFixedUpdateListeners.Add(gameFixedUpdateListener);
-        }
-        
-        private void RemoveListener(IGameListener gameListener)
-        {
-            _gameListeners.Remove(gameListener);
-            
-            if (gameListener is IGameUpdateListener gameUpdateListener)
-                _gameUpdateListeners.Remove(gameUpdateListener);
-
-            if (gameListener is IGameFixedUpdateListener gameFixedUpdateListener)
-                _gameFixedUpdateListeners.Remove(gameFixedUpdateListener);
-        }
-
-        [Button]
-        private void StartGame()
-        {
-            foreach (var gameListener in _gameListeners)
-            {
-                if (gameListener is IGameStartListener gameStartListener)
-                {
-                    gameStartListener.OnStartGame();
-                    Debug.Log("IGameStartListener");
-                }
-            }
-
-            _gameState = EGameState.Play;
-            Time.timeScale = 1;
-            Debug.Log("START GAME");
-        }
-        [Button]
-        public void FinishGame()
-        {
-            foreach (var gameListener in _gameListeners)
-            {
-                if (gameListener is IGameFinishListener gameFinishListener)
-                {
-                    gameFinishListener.OnFinishGame();
-                }
-            }
-            
-            Time.timeScale = 0;
-            _gameState = EGameState.Finish;
-            Debug.Log("FINISH");
-        }
-        
-        [Button]
-        public void PauseGame()
-        {
-            foreach (var gameListener in _gameListeners)
-            {
-                if (gameListener is IGamePauseListener gamePauseListener)
-                {
-                    gamePauseListener.OnPauseGame();
-                }
-            }
-            
-            Time.timeScale = 0;
-            _gameState = EGameState.Pause;
-            Debug.Log("PAUSE");
-        }
-        
-        [Button]
-        public void ResumeGame()
-        {
-            foreach (var gameListener in _gameListeners)
-            {
-                if (gameListener is IGameResumeListener gameResumeListener)
-                {
-                    gameResumeListener.OnResumeGame();
-                }
-            }
-            
-            Time.timeScale = 1;
-            _gameState = EGameState.Play;
-            Debug.Log("RESUME");
-        }
-    }
-    
-    /*public class GameManagerService : IGameManagerService,
+    public class GameManagerService : IGameManagerService,
         IStartable, ITickable, IFixedTickable, IDisposable //MonoBehaviour
     {
         //[SerializeField, Unity.Collections.ReadOnly]
@@ -162,7 +22,7 @@ namespace Project.Scripts.GameManager
         [Inject]
         private GameManagerService()
         {
-            /*_gameState = EGameState.Off;#1#
+            _gameState = EGameState.Off;
 
             IGameListener.onRegister += AddListener;
             IGameListener.onUnregister += RemoveListener;
@@ -187,6 +47,7 @@ namespace Project.Scripts.GameManager
 
         public void Tick()
         {
+            Debug.Log("GameManagerService Update");
             if (_gameState != EGameState.Play)
                 return;
             
@@ -200,6 +61,7 @@ namespace Project.Scripts.GameManager
 
         public void FixedTick()
         { 
+            Debug.Log("GameManagerService FixedUpdate");
             if(_gameState != EGameState.Play)
                 return;
             
@@ -249,7 +111,7 @@ namespace Project.Scripts.GameManager
             Time.timeScale = 1;
             Debug.Log("START GAME");
         }
-        /*[Button]#1#
+        /*[Button]*/
         public void FinishGame()
         {
             foreach (var gameListener in _gameListeners)
@@ -265,7 +127,7 @@ namespace Project.Scripts.GameManager
             Debug.Log("FINISH");
         }
         
-        /*[Button]#1#
+        /*[Button]*/
         public void PauseGame()
         {
             foreach (var gameListener in _gameListeners)
@@ -281,7 +143,7 @@ namespace Project.Scripts.GameManager
             Debug.Log("PAUSE");
         }
         
-        /*[Button]#1#
+        /*[Button]*/
         public void ResumeGame()
         {
             foreach (var gameListener in _gameListeners)
@@ -296,5 +158,5 @@ namespace Project.Scripts.GameManager
             _gameState = EGameState.Play;
             Debug.Log("RESUME");
         }
-    }*/
+    }
 }
