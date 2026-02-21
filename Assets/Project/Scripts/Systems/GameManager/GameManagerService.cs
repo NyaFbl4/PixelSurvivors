@@ -24,6 +24,7 @@ namespace Project.Scripts.GameManager
         {
             _gameState = EGameState.Off;
 
+            Debug.Log("GameManagerService install");
             IGameListener.onRegister += AddListener;
             IGameListener.onUnregister += RemoveListener;
         }

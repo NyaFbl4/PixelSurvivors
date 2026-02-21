@@ -1,5 +1,6 @@
 ﻿using MessagePipe;
 using Project.Scripts.GameManager;
+using Project.Scripts.Systems.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -20,11 +21,14 @@ namespace Project.Scripts.Systems.Installers
         {
             builder.RegisterMessagePipe();
             builder.RegisterEntryPoint<GameManagerService>().As<IGameManagerService>();
+            builder.Register<UIController>(Lifetime.Singleton).As<IUIController>();
+            builder.RegisterEntryPoint<UIMessageHandler>();
         }
 
         private void RegisterHelpers(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_gameManagerHelper);
+            // builder.RegisterInstance(_gameManagerHelper);
+            builder.RegisterComponentInHierarchy<GameManagerHelper>();
         }
     }
 }

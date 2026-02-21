@@ -11,12 +11,18 @@ namespace Project.Scripts.GameManager
         [Inject]
         public void Construct(IGameManagerService gameManagerService)
         {
+            Debug.Log("GameManagerHelper install");
             _gameManagerService = gameManagerService;
         }
         
         [Button]
         public void StartGame()
         {
+            if (_gameManagerService == null)
+            {
+                Debug.LogError("GameManagerService is null. Ensure GameManagerHelper is injected via GameLifetimeScope and run in Play Mode.");
+                return;
+            }
             _gameManagerService.StartGame();
         }
         [Button]
