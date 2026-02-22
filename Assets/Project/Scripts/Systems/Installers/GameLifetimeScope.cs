@@ -15,6 +15,8 @@ namespace Project.Scripts.Systems.Installers
         {
             RegisterSystems(builder);
             RegisterHelpers(builder);
+            RegisterViews(builder);
+            RegisterPresenters(builder);
         }
 
         private void RegisterSystems(IContainerBuilder builder)
@@ -27,8 +29,17 @@ namespace Project.Scripts.Systems.Installers
 
         private void RegisterHelpers(IContainerBuilder builder)
         {
-            // builder.RegisterInstance(_gameManagerHelper);
             builder.RegisterComponentInHierarchy<GameManagerHelper>();
+        }
+
+        private void RegisterViews(IContainerBuilder builder)
+        {
+
+        }
+        
+        private void RegisterPresenters(IContainerBuilder builder)
+        {
+
         }
     }
 }

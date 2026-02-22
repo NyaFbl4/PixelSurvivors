@@ -27,11 +27,11 @@ namespace Project.Scripts.Systems.UI
             var bag = DisposableBag.CreateBuilder();
 
             _showPopupSubscriber
-                .Subscribe(dto => _uiController.ShowPopup(dto.PresenterType))
+                .Subscribe(dto => _uiController.ShowPopup(dto.TargetPopUpType))
                 .AddTo(bag);
 
             _hidePopupSubscriber
-                .Subscribe(dto => _uiController.HidePopup(dto.PresenterType))
+                .Subscribe(dto => _uiController.HidePopup(dto.TargetPopUpType))
                 .AddTo(bag);
 
             _subscriptions = bag.Build();

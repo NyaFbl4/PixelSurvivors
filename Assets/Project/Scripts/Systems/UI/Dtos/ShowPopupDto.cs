@@ -4,11 +4,11 @@ namespace Project.Scripts.Systems.UI.Dtos
 {
     public readonly struct ShowPopupDto
     {
-        public Type PresenterType { get; }
+        public Type TargetPopUpType { get; }
 
         public ShowPopupDto(Type presenterType)
         {
-            PresenterType = presenterType;
+            TargetPopUpType = presenterType;
         }
     }
 }

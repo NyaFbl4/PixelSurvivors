@@ -42,5 +42,17 @@ namespace Project.Scripts.GameManager
         {
             _gameManagerService.ResumeGame();
         }
+
+        [Button]
+        public void ShowView()
+        {
+            
+        }
+
+        [Button]
+        public void HideView()
+        {
+            
+        }
     }
 }

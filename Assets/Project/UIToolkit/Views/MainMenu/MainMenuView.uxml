@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Background" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;" />
+    <ui:VisualElement name="Layout" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="Locations" style="width: 500px; height: 500px; min-height: 500px; max-height: 500px; min-width: 500px; max-width: 500px; background-color: rgb(255, 255, 255);">
+            <ui:Button text="TEst" name="Button_test" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
