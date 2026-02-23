@@ -21,7 +21,7 @@ namespace Project.Scripts.UI.MainScreen
         {
             base.Initialize();
             
-            _layoutView.Show();
+            // _layoutView.Show();
 
             // _layoutView.BattlePassButton.clicked += OnBattlePassClicked;
         }

@@ -1,8 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Background" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;" />
-    <ui:VisualElement name="Layout" style="flex-grow: 1; align-items: center; justify-content: center;">
-        <ui:VisualElement name="Locations" style="width: 500px; height: 500px; min-height: 500px; max-height: 500px; min-width: 500px; max-width: 500px; background-color: rgb(255, 255, 255);">
-            <ui:Button text="TEst" name="Button_test" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; width: 100%; height: 100%; align-items: center; justify-content: center;">
+        <ui:VisualElement name="Layout" style="flex-grow: 1; width: 100%; height: 100%; align-items: center; justify-content: center; z-index: 1;">
+            <ui:VisualElement name="Locations" style="width: 500px; height: 500px; min-height: 500px; max-height: 500px; min-width: 500px; max-width: 500px; background-color: rgb(255, 255, 255);">
+                <ui:Button text="TEst" name="Button_test" />
+                <ui:VisualElement name="Locations" style="width: 100px; height: 100px; min-height: 100px; max-height: 100px; min-width: 100px; max-width: 100px; background-color: rgb(204, 144, 144);">
+                    <ui:Label text="Label" />
+                </ui:VisualElement>
+                <ui:Button text="TEst" name="Button_test" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
