@@ -12,7 +12,8 @@ namespace Project.Scripts.Systems.Installers
     public class GameLifetimeScope : LifetimeScope
     {
         [SerializeField] private GameManagerHelper _gameManagerHelper;
-        [SerializeField] private MainMenuView _mainMenuView;
+        // [SerializeField] private MainMenuView _mainMenuView;
+        [SerializeField] private LayoutsRepository _layoutsRepository;
         // [SerializeField] private 
         
         protected override void Configure(IContainerBuilder builder)
@@ -48,7 +49,16 @@ namespace Project.Scripts.Systems.Installers
 
         private void RegisterViews(IContainerBuilder builder)
         {
-            builder.RegisterComponentInNewPrefab(_mainMenuView, Lifetime.Scoped).As<IMainMenuView>();
+            if (_layoutsRepository == null || _layoutsRepository.Views == null) return;
+
+            foreach (var prefab in _layoutsRepository.Views)
+            {
+                if (prefab == null) continue;
+
+                builder.RegisterComponentInNewPrefab(prefab, Lifetime.Scoped)
+                    .AsSelf()
+                    .AsImplementedInterfaces();
+            }
         }
         
         private void RegisterPresenters(IContainerBuilder builder)

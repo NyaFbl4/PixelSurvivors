@@ -20,17 +20,13 @@ namespace Project.Scripts.UI.MainScreen
         public void Initialize()
         {
             base.Initialize();
-            
-            // _layoutView.Show();
-
-            // _layoutView.BattlePassButton.clicked += OnBattlePassClicked;
         }
 
         public void Dispose()
         {
             // _layoutView.BattlePassButton.clicked -= OnBattlePassClicked;
             
-            // _disposable?.Dispose();
+            _disposable?.Dispose();
         }
 
         private void OnBattlePassClicked()
