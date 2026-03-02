@@ -3,18 +3,19 @@ using Project.Scripts.GameManager;
 using Project.Scripts.Systems.UI;
 using Project.Scripts.UI.MainScreen;
 using Project.Scripts.UI.UseCases;
+using Project.Scripts.Systems.GameBootstrap;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Project.Scripts.Systems.SpawnSystems;
 
 namespace Project.Scripts.Systems.Installers
 {
     public class GameLifetimeScope : LifetimeScope
     {
         [SerializeField] private GameManagerHelper _gameManagerHelper;
-        // [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private LayoutsRepository _layoutsRepository;
-        // [SerializeField] private 
+        [SerializeField] private SpawnManager _spawnManager;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -30,10 +31,9 @@ namespace Project.Scripts.Systems.Installers
             builder.RegisterMessagePipe();
             builder.RegisterEntryPoint<UIController>().As<IUIController>();
             builder.RegisterEntryPoint<GameManagerService>().As<IGameManagerService>();
-            // builder.RegisterMessagePipe();
-            // builder.RegisterEntryPoint<GameManagerService>().As<IGameManagerService>();
-            // builder.Register<UIController>(Lifetime.Singleton).As<IUIController>();
-            // builder.RegisterEntryPoint<UIMessageHandler>();
+            builder.RegisterEntryPoint<GameBootstrapper>(Lifetime.Singleton);
+
+            builder.RegisterComponentInHierarchy<SpawnManager>();
         }
 
         private void RegisterUseCases(IContainerBuilder builder)

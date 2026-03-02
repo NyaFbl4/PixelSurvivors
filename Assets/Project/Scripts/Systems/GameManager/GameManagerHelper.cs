@@ -1,4 +1,5 @@
 ﻿using MessagePipe;
+using Project.Scripts.Systems.SpawnSystems;
 using Project.Scripts.Systems.UI.Dtos;
 using Project.Scripts.UI.MainScreen;
 using Sirenix.OdinInspector;
@@ -13,17 +14,20 @@ namespace Project.Scripts.GameManager
         private IPublisher<HidePopupDto> _hidePopupDto;
         private IGameManagerService _gameManagerService;
         private MainMenuPresenter _mainMenuPresenter;
+        private SpawnManager _spawnManager; 
 
         [Inject]
         public void Construct(
             IGameManagerService gameManagerService,
             IPublisher<ShowPopupDto> showPopupDto,
-            IPublisher<HidePopupDto> hidePopupDto)
+            IPublisher<HidePopupDto> hidePopupDto,
+            SpawnManager spawnManager)
         {
             Debug.Log("GameManagerHelper install");
             _gameManagerService = gameManagerService;
             _showPopupDto = showPopupDto;
             _hidePopupDto = hidePopupDto;
+            _spawnManager = spawnManager;
         }
         
         [Button]
@@ -70,6 +74,18 @@ namespace Project.Scripts.GameManager
             {
                TargetPopUpType = typeof(IMainMenuPresenter)  
             });
+        }
+
+        [Button]
+        public void SpawnPlayer()
+        {
+            _spawnManager.SpawnPlayer();
+        }
+
+        [Button]
+        public void SpawnEnemy(float distanceN)
+        {
+            _spawnManager.SpawnEnemy(distanceN);
         }
     }
 }
